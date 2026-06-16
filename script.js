@@ -1,13 +1,6 @@
-/*const ks = document.getElementById("ksButton");
-const tx = document.getElementById("txButton");
-const mo = document.getElementById("moButton");
-const ok = document.getElementById("okButton");
-*/
-
-
 const startButton = document.getElementById("start");
 const contentBox = document.getElementById("content-box");
-const qestionNumber = 0;
+const questionNumber = 0;
 const questions = [ 
     {
         question: "Question 1. What state is San Antonio located in?", 
@@ -32,25 +25,37 @@ const questions = [
 
 startButton.addEventListener("click", function(event) {
     contentBox.innerHTML = "";
-    const question = document.createElement("p");
+    const curQuestion = document.createElement("p");
     const answerButtonOne = document.createElement("button");
     const answerButtonTwo = document.createElement("button");
     const answerButtonThree = document.createElement("button");
     const answerButtonFour = document.createElement("button");
     const replyText = document.createElement("p");
     const nextButton = document.createElement("button");
-    
+    assignQuestionInformation(curQuestion, answerButtonOne, answerButtonTwo, answerButtonThree, answerButtonFour);
+    contentBox.append(curQuestion);
+    contentBox.append(answerButtonOne);
+    contentBox.append(answerButtonTwo);
+    contentBox.append(answerButtonThree);
+    contentBox.append(answerButtonFour);
+    contentBox.append(replyText);
+    contentBox.append(nextButton);
+    console.log(curQuestion);
 })
 
 
+//helper functions
 
-//choices = { [Q1, {ks, tx, mo, ok}, index(2)]};
+const assignQuestionInformation = function(curQuestion, answerButtonOne, answerButtonTwo, answerButtonThree, answerButtonFour) {
+    const questionInfo = questions[questionNumber]
+    const allChoices = questionInfo.choices;    
+    curQuestion.innerText = questionInfo.question;  
+    answerButtonOne.innerText = allChoices[0];
+    answerButtonTwo.innerText = allChoices[1];
+    answerButtonThree.innerText = allChoices[2];
+    answerButtonFour.innerText = allChoices[3];
+    const answerButtons = [answerButtonOne, answerButtonTwo, answerButtonThree, answerButtonFour];
+    answerButtons[questionInfo.answer].setAttribute("data-isCorrect", "true");
+};
 
-/*<p>Question 1. What state is St. Louis located in?</p>
-        <button id="ksButton">Kansas</button>
-        <button id="txButton">Texas</button> 
-        <button id="moButton">Missouri</button>
-        <button id="okButton">Oklahoma</button>
-        <p></p>
-        <button id="nextButton">Next Question</button>
-*/
+
